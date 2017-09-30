@@ -5,8 +5,7 @@ package com.weijunfeng.invest.model;
  * Email : weijunfeng@myhexin.com
  */
 
-public class InvestEntry {
-    private InvestType mType;
+public class InvestType {
+    private String identifier;
     private String name;
-    private String code;
 }

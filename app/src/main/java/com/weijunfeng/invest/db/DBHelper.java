@@ -35,19 +35,17 @@ public class DBHelper extends SQLiteOpenHelper {
     private void createEntryTable(SQLiteDatabase db) {
         String sql = "CREATE TABLE IF NOT EXISTS "
                 + TABLE_ENTRY + " (" +
-                EntryColumn.AUTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                EntryColumn.CODE + " INTEGER PRIMARY KEY," +
                 EntryColumn.NAME + " TEXT," +
-                EntryColumn.TYPE + " TEXT," +
-                EntryColumn.CODE + " TEXT)";
+                EntryColumn.TYPE + " TEXT)";
         db.execSQL(sql);
     }
 
     private void createTypeTable(SQLiteDatabase db) {
         String sql = "CREATE TABLE IF NOT EXISTS "
                 + TABLE_TYPE + " (" +
-                TypeColumn.AUTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TypeColumn.NAME + " TEXT," +
-                TypeColumn.IDENTIFIER + " TEXT)";
+                TypeColumn.IDENTIFIER + " INTEGER PRIMARY KEY," +
+                TypeColumn.NAME + " TEXT)";
         db.execSQL(sql);
     }
 
@@ -66,14 +64,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public static class EntryColumn {
-        public static final String AUTO_ID = "_id";
         public static final String NAME = "invest_name";
         public static final String TYPE = "type_identifier";
         public static final String CODE = "invest_code";
     }
 
     public static class TypeColumn {
-        public static final String AUTO_ID = "_id";
         public static final String NAME = "type_name";
         public static final String IDENTIFIER = "identifier";
     }

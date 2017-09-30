@@ -1,5 +1,6 @@
 package com.weijunfeng.invest.db;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.weijunfeng.invest.InvestApplication;
@@ -33,6 +34,14 @@ public class DBManager {
             ourInstance = null;
         }
     }
+
+    public boolean insertInvestType(CharSequence iden, CharSequence name) {
+        ContentValues values = new ContentValues(2);
+        values.put(DBHelper.TypeColumn.IDENTIFIER, String.valueOf(iden));
+        values.put(DBHelper.TypeColumn.NAME, String.valueOf(name));
+        return mDatabase.insert(DBHelper.TABLE_TYPE, null, values) != -1;
+    }
+
 
     private void closeDb() {
         if (mDatabase != null) {

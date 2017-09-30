@@ -1,12 +1,17 @@
 package com.weijunfeng.invest;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.weijunfeng.invest.db.DBManager;
 import com.weijunfeng.invest.util.ToastUtils;
@@ -66,7 +71,31 @@ public class MainActi extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_type) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View view = LayoutInflater.from(this).inflate(R.layout.dialog_type, null, false);
+            AlertDialog alertDialog = builder.setView(view)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            CharSequence identifier = ((TextView) view.findViewById(R.id.identifier)).getText().toString().trim();
+                            CharSequence name = ((TextView) view.findViewById(R.id.name)).getText().toString().trim();
+                            if (TextUtils.isEmpty(identifier) || TextUtils.isEmpty(name)) {
+                                ToastUtils.toast("输入内容不能为空");
+                                return;
+                            }
+                            boolean result = DBManager.getInstance().insertInvestType(identifier, name);
+                            if (result) {
+                                ToastUtils.toast("插入成功");
+                            } else {
+                                ToastUtils.toast("失败");
+                            }
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .create();
+//            alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            alertDialog.show();
             return true;
         }
 
