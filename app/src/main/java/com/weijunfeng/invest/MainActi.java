@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +15,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.weijunfeng.invest.db.DBManager;
+import com.weijunfeng.invest.util.ReflectUtils;
 import com.weijunfeng.invest.util.ToastUtils;
 import com.weijunfeng.invest.util.UIUtils;
+
+import java.lang.reflect.Field;
 
 public class MainActi extends AppCompatActivity {
     private long lastClickBackTime = 0;
@@ -51,6 +52,13 @@ public class MainActi extends AppCompatActivity {
             }
         });
         mViewById = (ViewPager) findViewById(R.id.content);
+//        Field field = ReflectUtils.getField(ViewPager.class, "mOffscreenPageLimit");
+//        try {
+//            ReflectUtils.writeField(field, mViewById, 0);
+//            System.out.println("ReflectUtils.readField(field, mViewById) = " + ReflectUtils.readField(field, mViewById));
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
         mViewById.setAdapter(new InvestPageAdapter(getSupportFragmentManager()));
     }
 
