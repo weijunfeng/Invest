@@ -21,7 +21,22 @@ allprojects {
         jcenter()
     }
 }
+ext {
+    // Sdk and tools
+    compileSdkVersion = 25
+    buildToolsVersion = '26.0.2'
+    minSdkVersion = 14
+    targetSdkVersion = 22
 
+    versionCode = 100900300
+    versionName = '1.9.3'
+
+    // App dependencies
+    supportVersion = '25.3.1'
+
+    junitVersion = '4.12'
+    robolectricVersion = '3.1.2'
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

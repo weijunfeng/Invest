@@ -3,6 +3,11 @@ package com.weijunfeng.invest;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.weijunfeng.invest.db.DBManager;
@@ -19,6 +25,7 @@ import com.weijunfeng.invest.util.UIUtils;
 
 public class MainActi extends AppCompatActivity {
     private long lastClickBackTime = 0;
+    private ViewPager mViewById;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,24 @@ public class MainActi extends AppCompatActivity {
 //                        }).show();
             }
         });
+        mViewById = (ViewPager) findViewById(R.id.content);
+        mViewById.setAdapter(new InvestPageAdapter(getSupportFragmentManager()));
+    }
+
+    private class InvestPageAdapter extends FragmentPagerAdapter {
+        public InvestPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new MainActiFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 
     @Override
