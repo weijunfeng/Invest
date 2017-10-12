@@ -1,0 +1,62 @@
+#设置默认行为，即使用户没有设置core.autocrlf  
+* text=lf
+  
+#显示声明为text文件，以便总是在检出时规范化转成本地换行设置  
+#*.c text
+#*.h text
+  
+#声明文件总是在检出时以CRLF换行  
+*.sln text eol=lf
+  
+# Denote all files that are truly binary and should not be modified.  
+#声明文件是二进制文件，不必要进行换行转换  
+*.png binary  
+*.jpg binary
+
+
+#改变换行设置后刷新代码仓库
+#当你重新设置core.autocrlf或者提交了一个新的.gitattributes文件，你可能会发现Git总是提示你要提交更多你没有修改过的文件。这是因为，此时Git会试图改变所有文件的换行。
+#
+#自动配置代码仓库里的换行设置的方法是，首先备份本地文件，然后删除所有除.git目录以外的文件，最好批量一次性恢复所有文件。
+#
+#1.备份本地文件，以便没有任何本地工作丢失。
+#
+#[plain] view plain copy
+#git add . -u
+#git commit -m "Saving files before refreshing line endings"
+#2.删除Git index里面所有文件
+#
+#[plain] view plain copy
+#git rm --cached -r .
+#3.重写Git index以便新的换行设置生效
+#
+#[plain] view plain copy
+#git reset --hard
+#4.添加本地更改，准备一次新的提交。这一次你将会有机会检查文件没有更改。
+#
+#[plain] view plain copy
+#git add .
+## It is perfectly safe to see a lot of messages here that read
+## "warning: CRLF will be replaced by LF in file."
+#5.提交
+#
+#[plain] view plain copy
+#git commit -m "Normalize all the line endings"
+
+
+#Git设置
+#
+#1、关闭换行符自动转换功能
+#
+#// 提交检出均不转换
+#git config --global core.autocrlf false
+#2、开启换行符检查功能（按照需求设置）
+#
+#// 拒绝提交包含混合换行符的文件
+#git config --global core.safecrlf true
+#
+#// 允许提交包含混合换行符的文件
+#git config --global core.safecrlf false
+#
+#// 提交包含混合换行符的文件时给出警告
+#git config --global core.safecrlf warn
