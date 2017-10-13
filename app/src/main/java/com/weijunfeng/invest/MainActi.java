@@ -18,11 +18,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.weijunfeng.invest.db.DBManager;
-import com.weijunfeng.invest.util.ReflectUtils;
+import com.weijunfeng.invest.util.OnDebouncingClickListener;
 import com.weijunfeng.invest.util.ToastUtils;
 import com.weijunfeng.invest.util.UIUtils;
-
-import java.lang.reflect.Field;
 
 public class MainActi extends AppCompatActivity {
     private long lastClickBackTime = 0;
@@ -38,9 +36,9 @@ public class MainActi extends AppCompatActivity {
         DBManager.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new OnDebouncingClickListener() {
             @Override
-            public void onClick(View view) {
+            public void doClick(View v) {
                 ToastUtils.toast("action");
 //                Snackbar.make(view, "", Snackbar.LENGTH_LONG)
 //                        .setAction("", new View.OnClickListener() {

@@ -1,1 +1,1 @@
-include ':app', ':androidutilcode', ':utilcode', ':subutil'
+include ':app', ':androidutilcode', ':utilcode', ':subutil', ':mvp-lib'
